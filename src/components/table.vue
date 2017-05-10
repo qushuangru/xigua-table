@@ -31,7 +31,7 @@
         return this.value;
       },
       totalPage() {
-        return Math.ceil(this.listOpt.tableParams.total / this.listOpt.tableParams.count);
+        return Math.ceil(this.listOpt.tableParams.total / this.listOpt.count);
       },
     },
     created() {
@@ -49,6 +49,7 @@
       Vue.set(this.listOpt, '$data', []);
       Vue.set(this.listOpt.tableParams, 'page', 1);
       Vue.set(this.listOpt.tableParams, 'total', 0);
+      Vue.set(this.listOpt.tableParams, 'count', this.listOpt.count);
       Vue.delete(this.listOpt, 'getData');
       this.$emit('input', this.listOpt);
       this.getData(this.defer, this.listOpt.tableParams);

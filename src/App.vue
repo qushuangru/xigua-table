@@ -29,17 +29,29 @@
 <script>
   import xiguaTable from './components/table';
 
-  const listData = [
-    { name: '小红', age: 12, id: 1 },
-    { name: '小橙', age: 6, id: 2 },
-    { name: '小黄', age: 23, id: 3 },
-    { name: '小绿', age: 15, id: 4 },
-    { name: '小青', age: 8, id: 5 },
-  ];
+  const listData = {
+    data: [[
+        { name: '小红', age: 12, id: 1 },
+        { name: '小橙', age: 6, id: 2 },
+        { name: '小黄', age: 23, id: 3 },
+        { name: '小绿', age: 15, id: 4 },
+        { name: '小青', age: 8, id: 5 },
+    ], [
+        { name: '老赵', age: 66, id: 6 },
+        { name: '老钱', age: 87, id: 7 },
+        { name: '老孙', age: 72, id: 8 },
+        { name: '老李', age: 59, id: 9 },
+        { name: '老王', age: 108, id: 10 },
+    ], [
+        { name: '大仁', age: 12, id: 1 },
+        { name: '大义', age: 6, id: 2 },
+        { name: '大礼', age: 23, id: 3 },
+        { name: '大智', age: 15, id: 4 },
+        { name: '大信', age: 8, id: 5 },
+    ]],
+    totalSize: 15,
+  };
 
-  function demo(data) {
-    console.log(data);
-  }
 
   export default {
     name: 'app',
@@ -52,11 +64,12 @@
           count: 5,
           getData: ($defer, $params) => {
             const params = $params;
-            params.count = 5;
             const query = Object.assign({}, params, this.query);
-            demo(query);
-            params.total = 34;
-            $defer.resolve(listData);
+
+            // ajax
+            $defer.resolve(listData.data[query.page - 1]);
+            params.total = listData.totalSize;
+            // ajax
           },
         },
         model: {},
